@@ -1,0 +1,5 @@
+.DS_Store
+PipFile
+db.sqlite3
+
+configuration/
