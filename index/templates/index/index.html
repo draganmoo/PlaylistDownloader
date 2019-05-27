@@ -5,7 +5,11 @@
 </head>
 <body>
 
-  <a href="{% url 'google_api:index' %}">Login to YouTube</a>
+  {% if request.session.credentials %}
+    <p>Connected !</p>
+  {% else %}
+    <a href="{% url 'google_api:index' %}">Login to YouTube</a>
+  {% endif %}
 
 </body>
 </html>

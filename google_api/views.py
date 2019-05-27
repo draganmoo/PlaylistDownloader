@@ -9,8 +9,9 @@ def authenticate(request):
     return redirect(authorization_url)
 
 def oauth2callback(request):
-    state = request.session['state']
-    credentials = retrieve_credentials(state, request.get_full_path())
-    request.session['credentials'] = credentials_to_dict(credentials)
+    if 'error' not in request.GET:
+        state = request.session['state']
+        credentials = retrieve_credentials(state, request.get_full_path())
+        request.session['credentials'] = credentials_to_dict(credentials)
 
     return redirect('index:index')

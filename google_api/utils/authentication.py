@@ -1,5 +1,4 @@
 from django.conf import settings
-from django.urls import reverse
 
 import google.oauth2.credentials
 import google_auth_oauthlib.flow
@@ -36,8 +35,7 @@ def retrieve_credentials(state, url):
                 state=state)
     flow.redirect_uri = settings.GOOGLE_REDIRECT_URI
     # Use the authorization server's response to fetch the OAuth 2.0 tokens.
-    authorization_response = url
-    flow.fetch_token(authorization_response=authorization_response)
+    flow.fetch_token(authorization_response=url)
 
     return flow.credentials
 
