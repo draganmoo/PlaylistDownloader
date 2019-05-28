@@ -8,5 +8,6 @@ app_name = 'google_api'
 
 urlpatterns = [
     path('', views.authenticate, name='index'),
+    path('revoke_credentials/', views.revoke, name='revoke_credentials'),
     path('oauth2callback/', views.oauth2callback, name='oauth2callback'),
 ]
