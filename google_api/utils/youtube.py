@@ -31,9 +31,9 @@ def my_playlist_items(service, playlist_id, part='id, snippet'):
     response = service.playlistItems().list(part=part, playlistId=playlist_id, maxResults=50).execute()
     items = response['items']
     while 'nextPageToken' in response:
-        response = service.playlist().list(part=part, playlistId=playlist_id, maxResults=50,
+        response = service.playlistItems().list(part=part, playlistId=playlist_id, maxResults=50,
                         pageToken=response['nextPageToken']).execute()
 
-        ids += response['items']
+        items += response['items']
 
-    return ids
+    return items
