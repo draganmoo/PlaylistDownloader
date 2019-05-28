@@ -1,15 +1,76 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" dir="ltr">
 <head>
-<title>Page Title</title>
+  <meta charset="utf-8">
+  <title>Playlist Downloader</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/stylesheet.css' %}" />
 </head>
-<body>
 
-  {% if request.session.credentials %}
-    <p>Connected !</p>
+<body>
+  <div id="title">
+    <h1>Download your own YouTube playlists !</h1>
+  </div>
+
+  <div id="page" class="container-fluid">
+    <div class="row">
+      <div class="col-md-2">
+        <div class="card playlist">
+          <img class="card-img-top" src="https://i.ytimg.com/vi/k5ABT9iE1Fk/hqdefault.jpg?sqp=-oaymwEYCKgBEF5IVfKriqkDCwgBFQAAiEIYAXAB&rs=AOn4CLCsCch0-ZYwQsruVKhQdMLzLGRvbQ">
+          <div class="card-body">
+            <p class="card-text ">Playlist name</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="card playlist">
+          <img class="card-img-top" src="https://i.ytimg.com/vi/k5ABT9iE1Fk/hqdefault.jpg?sqp=-oaymwEYCKgBEF5IVfKriqkDCwgBFQAAiEIYAXAB&rs=AOn4CLCsCch0-ZYwQsruVKhQdMLzLGRvbQ">
+          <div class="card-body">
+            <p class="card-text ">Playlist name</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="card playlist">
+          <img class="card-img-top" src="https://i.ytimg.com/vi/k5ABT9iE1Fk/hqdefault.jpg?sqp=-oaymwEYCKgBEF5IVfKriqkDCwgBFQAAiEIYAXAB&rs=AOn4CLCsCch0-ZYwQsruVKhQdMLzLGRvbQ">
+          <div class="card-body">
+            <p class="card-text ">Playlist name</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="card playlist">
+          <img class="card-img-top" src="https://i.ytimg.com/vi/k5ABT9iE1Fk/hqdefault.jpg?sqp=-oaymwEYCKgBEF5IVfKriqkDCwgBFQAAiEIYAXAB&rs=AOn4CLCsCch0-ZYwQsruVKhQdMLzLGRvbQ">
+          <div class="card-body">
+            <p class="card-text ">Playlist name</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="card playlist">
+          <img class="card-img-top" src="https://i.ytimg.com/vi/k5ABT9iE1Fk/hqdefault.jpg?sqp=-oaymwEYCKgBEF5IVfKriqkDCwgBFQAAiEIYAXAB&rs=AOn4CLCsCch0-ZYwQsruVKhQdMLzLGRvbQ">
+          <div class="card-body">
+            <p class="card-text ">Playlist name</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="card playlist">
+          <img class="card-img-top" src="https://i.ytimg.com/vi/k5ABT9iE1Fk/hqdefault.jpg?sqp=-oaymwEYCKgBEF5IVfKriqkDCwgBFQAAiEIYAXAB&rs=AOn4CLCsCch0-ZYwQsruVKhQdMLzLGRvbQ">
+          <div class="card-body">
+            <p class="card-text ">Playlist name</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- {% if request.session.credentials %}
+  <p>Connected !</p>
   {% else %}
-    <a href="{% url 'google_api:index' %}">Login to YouTube</a>
-  {% endif %}
+  <a href="{% url 'google_api:index' %}">Login to YouTube</a>
+  {% endif %} -->
 
 </body>
 </html>
