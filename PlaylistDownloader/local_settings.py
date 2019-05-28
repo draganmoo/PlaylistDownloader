@@ -10,3 +10,6 @@ if not os.path.isfile(GOOGLE_CLIENT_SECRETS_FILE):
 
 GOOGLE_REDIRECT_URI = 'http://localhost:8000/google_api/oauth2callback'
 YOUTUBE_SCOPE = ['https://www.googleapis.com/auth/youtube.readonly']
+
+YOUTUBE_API_SERVICE_NAME = 'youtube'
+YOUTUBE_API_VERSION = 'v3'

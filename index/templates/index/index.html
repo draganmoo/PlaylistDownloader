@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <title>Playlist Downloader</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
   {% load static %}
   <link rel="stylesheet" href="{% static 'css/stylesheet.css' %}" />
 </head>
@@ -13,64 +14,33 @@
     <h1>Download your own YouTube playlists !</h1>
   </div>
 
+  {% if is_authenticated %}
   <div id="page" class="container-fluid">
-    <div class="row">
-      <div class="col-md-2">
-        <div class="card playlist">
-          <img class="card-img-top" src="https://i.ytimg.com/vi/k5ABT9iE1Fk/hqdefault.jpg?sqp=-oaymwEYCKgBEF5IVfKriqkDCwgBFQAAiEIYAXAB&rs=AOn4CLCsCch0-ZYwQsruVKhQdMLzLGRvbQ">
+    <div class="row limit">
+      {% for playlist in playlists %}
+
+      <div class="col-md-2 d-flex align-items-stretch">
+        <div class="card border border-dark playlist">
+          <img class="card-img-top rounded" src="{{ playlist.snippet.thumbnails.high.url }}">
           <div class="card-body">
-            <p class="card-text ">Playlist name</p>
+            <p class="card-text">{{ playlist.snippet.title }}</p>
+          </div>
+          <div class="card-img-overlay d-flex justify-content-center align-items-center">
+            <a href="#"><i class="fa fa-download fa-3x"></i></a>
           </div>
         </div>
       </div>
-      <div class="col-md-2">
-        <div class="card playlist">
-          <img class="card-img-top" src="https://i.ytimg.com/vi/k5ABT9iE1Fk/hqdefault.jpg?sqp=-oaymwEYCKgBEF5IVfKriqkDCwgBFQAAiEIYAXAB&rs=AOn4CLCsCch0-ZYwQsruVKhQdMLzLGRvbQ">
-          <div class="card-body">
-            <p class="card-text ">Playlist name</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-2">
-        <div class="card playlist">
-          <img class="card-img-top" src="https://i.ytimg.com/vi/k5ABT9iE1Fk/hqdefault.jpg?sqp=-oaymwEYCKgBEF5IVfKriqkDCwgBFQAAiEIYAXAB&rs=AOn4CLCsCch0-ZYwQsruVKhQdMLzLGRvbQ">
-          <div class="card-body">
-            <p class="card-text ">Playlist name</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-2">
-        <div class="card playlist">
-          <img class="card-img-top" src="https://i.ytimg.com/vi/k5ABT9iE1Fk/hqdefault.jpg?sqp=-oaymwEYCKgBEF5IVfKriqkDCwgBFQAAiEIYAXAB&rs=AOn4CLCsCch0-ZYwQsruVKhQdMLzLGRvbQ">
-          <div class="card-body">
-            <p class="card-text ">Playlist name</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-2">
-        <div class="card playlist">
-          <img class="card-img-top" src="https://i.ytimg.com/vi/k5ABT9iE1Fk/hqdefault.jpg?sqp=-oaymwEYCKgBEF5IVfKriqkDCwgBFQAAiEIYAXAB&rs=AOn4CLCsCch0-ZYwQsruVKhQdMLzLGRvbQ">
-          <div class="card-body">
-            <p class="card-text ">Playlist name</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-2">
-        <div class="card playlist">
-          <img class="card-img-top" src="https://i.ytimg.com/vi/k5ABT9iE1Fk/hqdefault.jpg?sqp=-oaymwEYCKgBEF5IVfKriqkDCwgBFQAAiEIYAXAB&rs=AOn4CLCsCch0-ZYwQsruVKhQdMLzLGRvbQ">
-          <div class="card-body">
-            <p class="card-text ">Playlist name</p>
-          </div>
-        </div>
-      </div>
+
+      {% if forloop.counter|divisibleby:"6" and not forloop.last %}
+    </div><div class="row limit">
+      {% endif %}
+
+      {% endfor %}
     </div>
   </div>
-
-  <!-- {% if request.session.credentials %}
-  <p>Connected !</p>
   {% else %}
   <a href="{% url 'google_api:index' %}">Login to YouTube</a>
-  {% endif %} -->
+  {% endif %}
 
 </body>
 </html>

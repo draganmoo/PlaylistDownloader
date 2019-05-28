@@ -3,6 +3,8 @@ from django.conf import settings
 import google.oauth2.credentials
 import google_auth_oauthlib.flow
 
+import requests
+
 
 
 def request_authorization_url():
@@ -38,6 +40,14 @@ def retrieve_credentials(state, url):
     flow.fetch_token(authorization_response=url)
 
     return flow.credentials
+
+
+def is_valid_credentials(credentials):
+    if 'token' in credentials:
+        post_data = {'access_token': credentials['token']}
+        response = requests.post('https://www.googleapis.com/oauth2/v1/tokeninfo', data=post_data)
+        return 'error' not in response.json()
+    return False
 
 
 def credentials_to_dict(credentials):

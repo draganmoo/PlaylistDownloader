@@ -1,4 +1,5 @@
-#title{
+/* Header */
+#title {
   background: #4C5C68;
   font-family: Herculanum;
   font-size: 79px;
@@ -7,28 +8,48 @@
   text-align: center;
 }
 
-#page{
+
+/* Body */
+body {
+  background: #C5C3C6;
+}
+
+#page {
   padding-top: 3em;
+  padding-bottom: 3em;
   padding-left: 5em;
   padding-right: 5em;
 }
 
-body{
-  background: #C5C3C6;
+/* Limit the height of rows */
+.row.limit [class*="col-"]{
+  max-height:20em;
+  overflow:hidden;
 }
 
-.playlist{
+/* Card specificities */
+.playlist.card {
   background: #C5C3C6;
-  border: 1em;
   border-radius: 15px;
   padding: .5em;
+  margin-top: 1em;
 }
 
-.playlist-name{
-  font-size: 2em;
-  text-align: center;
+.card.playlist:hover > *:not(.card-img-overlay) {
+  filter: blur(5px);
+  -webkit-filter: blur(5px); /* Chrome, Safari, Opera */
 }
 
-.offline img{
-  -webkit-filter: blur(10px);
+.playlist.card > .card-img-overlay {
+  opacity: 0;
+}
+.playlist.card > .card-img-overlay:hover {
+  opacity: 1;
+}
+
+.playlist.card > .card-img-overlay > a {
+  color: #AAAAAA;
+}
+.playlist.card > .card-img-overlay > a:hover {
+  color: #111111;
 }
