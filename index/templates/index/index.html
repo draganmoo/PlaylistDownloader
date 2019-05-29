@@ -3,10 +3,13 @@
 <head>
   <meta charset="utf-8">
   <title>Playlist Downloader</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
   {% load static %}
-  <link rel="stylesheet" href="{% static 'css/stylesheet.css' %}" />
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="{% static 'css/stylesheet.css' %}"/>
+
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -26,7 +29,12 @@
             <p class="card-text">{{ playlist.snippet.title }}</p>
           </div>
           <div class="card-img-overlay d-flex justify-content-center align-items-center">
-            <a href="#"><i class="fa fa-download fa-3x"></i></a>
+            <div id="downloadable_playlist">
+              <a playlist_id="{{ playlist.id }}"><i class="fa fa-download fa-3x"></i></a>
+            </div>
+            <div id="downloading_playlist">
+              <a playlist_id="{{ playlist.id }}"><i class="fa fa-eye fa-5x"></i></a>
+            </div>
           </div>
         </div>
       </div>
@@ -41,6 +49,27 @@
   {% else %}
   <a href="{% url 'google_api:index' %}">Login to YouTube</a>
   {% endif %}
+
+
+  <script>
+    $("#downloading_playlist > a").click(function () {
+      $.ajax({
+        url: "{% url 'index:my_playlist_items' %}",
+        type: "GET",
+        data: {"playlist_id": $(this).attr("playlist_id")},
+        success: success_callback
+      });
+    });
+
+
+    function success_callback(data) {
+      if(data.playlist_items) {
+        alert(data.playlist_items.length);
+      } else if(data.error) {
+        alert(data.error);
+      }
+    };
+  </script>
 
 </body>
 </html>

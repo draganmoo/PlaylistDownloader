@@ -47,9 +47,13 @@ body {
   opacity: 1;
 }
 
-.playlist.card > .card-img-overlay > a {
+.playlist.card > .card-img-overlay > div > a {
   color: #AAAAAA;
 }
-.playlist.card > .card-img-overlay > a:hover {
+.playlist.card > .card-img-overlay > div > a:hover {
   color: #111111;
+}
+
+#downloadable_playlist {
+  display: none;
 }
