@@ -18,8 +18,8 @@
   </div>
 
   {% if is_authenticated %}
-  <div id="page" class="container-fluid">
-    <div class="row limit">
+  <div id="playlist_page" class="container-fluid page">
+    <div class="row limit-6">
       {% for playlist in playlists %}
 
       <div class="col-md-2 d-flex align-items-stretch">
@@ -40,34 +40,88 @@
       </div>
 
       {% if forloop.counter|divisibleby:"6" and not forloop.last %}
-    </div><div class="row limit">
+    </div><div class="row limit-6">
       {% endif %}
 
       {% endfor %}
     </div>
   </div>
+    {% for playlist in playlists %}
+  <div id="playlist_item_page" class="container-fluid page" playlist_id={{ playlist.id }}>
+  </div>
+    {% endfor %}
   {% else %}
   <a href="{% url 'google_api:index' %}">Login to YouTube</a>
   {% endif %}
 
 
+
   <script>
     $("#downloading_playlist > a").click(function () {
+      var playlist_id = $(this).attr("playlist_id");
+      slide_playlist_page(playlist_id);
+    });
+
+
+    function slide_playlist_page(playlist_id) {
+      var selector = "#playlist_item_page[playlist_id=" + playlist_id + "]";
+      var div_width = $(selector).width();
+
+      $("#playlist_page").hide();
+      $(selector).css({"display": "block", "right": -1 * div_width + "px"});
+      $(selector).css("visibility", "visible")
+                .animate({opacity: 1.0, right: "0px"}, 2000);
+    };
+  </script>
+
+  <script>
+    $("#downloadable_playlist > a").click(function () {
+      $(this).parent().css({"display": "none"});
       $.ajax({
         url: "{% url 'index:my_playlist_items' %}",
         type: "GET",
         data: {"playlist_id": $(this).attr("playlist_id")},
-        success: success_callback
+        success: create_playlist_item_page
       });
     });
 
 
-    function success_callback(data) {
-      if(data.playlist_items) {
-        alert(data.playlist_items.length);
+    function create_playlist_item_page(data) {
+      if(data.playlist_id && data.playlist_items) {
+        var selector = "#downloading_playlist >a[playlist_id=" + data.playlist_id + "]";
+        fill_playlist_item_page(data.playlist_id, data.playlist_items);
+        $(selector).parent().css({"display": "block"});
       } else if(data.error) {
         alert(data.error);
       }
+    };
+
+    function fill_playlist_item_page(playlist_id, playlist_items) {
+      var selector = "#playlist_item_page[playlist_id=" + playlist_id + "]";
+      var playlist_item_page = document.querySelector(selector);
+      var row = null;
+      for(var i=0; i < playlist_items.length; i++) {
+        if(i % 4 == 0) {
+          var row = document.createElement("div");
+          row.className = "row limit-4";
+          playlist_item_page.appendChild(row);
+        }
+
+        var playlist_item = playlist_items[i];
+        $.ajax({
+          async: false,
+          url: "{% static 'html/index/playlist_item.html' %}",
+          dataType: 'html',
+          success: function(data){ append_playlist_item_template(playlist_item, row, data); }
+        });
+      }
+    };
+
+    function append_playlist_item_template(playlist_item, row, html) {
+      // Complete the template with appropriate value
+      html = html.replace("TEMPLATE_URL", playlist_item["snippet"]["thumbnails"]["high"]["url"]);
+      html = html.replace("TEMPLATE_PARAGRAPH", playlist_item["snippet"]["title"]);
+      $(row).append(html);
     };
   </script>
 

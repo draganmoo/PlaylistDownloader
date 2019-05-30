@@ -14,16 +14,28 @@ body {
   background: #C5C3C6;
 }
 
-#page {
+.page {
   padding-top: 3em;
   padding-bottom: 3em;
   padding-left: 5em;
   padding-right: 5em;
 }
 
+#playlist_item_page {
+  opacity: 0;
+  visibility: hidden;
+  position: relative;
+  display: none;
+}
+
 /* Limit the height of rows */
-.row.limit [class*="col-"]{
+.row.limit-6 [class*="col-"]{
   max-height:20em;
+  overflow:hidden;
+}
+
+.row.limit-4 [class*="col-"]{
+  max-height:25em;
   overflow:hidden;
 }
 
@@ -54,6 +66,7 @@ body {
   color: #111111;
 }
 
-#downloadable_playlist {
+/* Button to see playlist items */
+#downloading_playlist {
   display: none;
 }
