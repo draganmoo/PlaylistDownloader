@@ -21,6 +21,9 @@ body {
   padding-right: 5em;
 }
 
+#playlist_page {
+  position: relative;
+}
 #playlist_item_page {
   opacity: 0;
   visibility: hidden;
@@ -59,10 +62,10 @@ body {
   opacity: 1;
 }
 
-.playlist.card > .card-img-overlay > div > a {
+.playlist.card > .card-img-overlay > div > a, a.a-fa {
   color: #AAAAAA;
 }
-.playlist.card > .card-img-overlay > div > a:hover {
+.playlist.card > .card-img-overlay > div > a:hover, a.a-fa:hover {
   color: #111111;
 }
 

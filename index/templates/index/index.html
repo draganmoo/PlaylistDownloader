@@ -30,10 +30,14 @@
           </div>
           <div class="card-img-overlay d-flex justify-content-center align-items-center">
             <div id="downloadable_playlist">
-              <a playlist_id="{{ playlist.id }}"><i class="fa fa-download fa-3x"></i></a>
+              <a href="#" class="a-fa" playlist_id="{{ playlist.id }}">
+                <i class="fa fa-download fa-3x"></i>
+              </a>
             </div>
             <div id="downloading_playlist">
-              <a playlist_id="{{ playlist.id }}"><i class="fa fa-eye fa-5x"></i></a>
+              <a href="#" class="a-fa" playlist_id="{{ playlist.id }}">
+                <i class="fa fa-eye fa-5x"></i>
+              </a>
             </div>
           </div>
         </div>
@@ -47,7 +51,10 @@
     </div>
   </div>
     {% for playlist in playlists %}
-  <div id="playlist_item_page" class="container-fluid page" playlist_id={{ playlist.id }}>
+  <div id="playlist_item_page" class="container-fluid page" playlist_id="{{ playlist.id }}">
+    <div class="row col-12">
+      <a href="#" id="main_page" class="a-fa"><i class="fa fa-arrow-circle-left fa-3x"></i></a>
+    </div>
   </div>
     {% endfor %}
   {% else %}
@@ -56,24 +63,8 @@
 
 
 
-  <script>
-    $("#downloading_playlist > a").click(function () {
-      var playlist_id = $(this).attr("playlist_id");
-      slide_playlist_page(playlist_id);
-    });
-
-
-    function slide_playlist_page(playlist_id) {
-      var selector = "#playlist_item_page[playlist_id=" + playlist_id + "]";
-      var div_width = $(selector).width();
-
-      $("#playlist_page").hide();
-      $(selector).css({"display": "block", "right": -1 * div_width + "px"});
-      $(selector).css("visibility", "visible")
-                .animate({opacity: 1.0, right: "0px"}, 2000);
-    };
-  </script>
-
+  <script src="{% static 'js/slide_playlist_page.js' %}"></script>
+  <script src="{% static 'js/slide_playlist_item_page.js' %}"></script>
   <script>
     $("#downloadable_playlist > a").click(function () {
       $(this).parent().css({"display": "none"});
