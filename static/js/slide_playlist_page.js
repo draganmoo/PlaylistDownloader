@@ -7,7 +7,7 @@ $(document).ready(function() {
 
 
 function slide_playlist_page(playlist_id) {
-  var selector = "#playlist_item_page[playlist_id=" + playlist_id + "]";
+  var selector = "#playlist_item_page[playlist_id='" + playlist_id + "']";
   var div_width = $(selector).width();
 
   $("#playlist_page").css({"opacity": 0, "visibility": "hidden", "display": "none"});
