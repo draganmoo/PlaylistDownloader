@@ -8,6 +8,15 @@
   text-align: center;
 }
 
+#instruction {
+  font-family: Herculanum;
+  font-size: 50px;
+  color: #FFFFFF;
+  margin-top: 1em;
+  padding: 0.5em;
+  text-align: center;
+}
+
 
 /* Body */
 body {

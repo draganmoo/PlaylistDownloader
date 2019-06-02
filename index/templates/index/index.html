@@ -61,7 +61,12 @@
   </div>
     {% endfor %}
   {% else %}
-  <a href="{% url 'google_api:index' %}">Login to YouTube</a>
+  <div id="instruction">
+    <h2>First off, connect to your YouTube account !</h2>
+    <a href="{% url 'google_api:index' %}">
+      <img src="{% static 'img/youtube_logo.png' %}" class="img-fluid" width="400" height="400"></img>
+    </a>
+  </div>
   {% endif %}
 
 
