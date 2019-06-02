@@ -1,6 +1,8 @@
-$("#playlist_item_page > div > a").click(function () {
-  var playlist_id = $(this).parent().parent().attr("playlist_id");
-  slide_playlist_item_page(playlist_id);
+$(document).ready(function() {
+  $("#playlist_item_page > div > a").click(function () {
+    var playlist_id = $(this).parent().parent().attr("playlist_id");
+    slide_playlist_item_page(playlist_id);
+  });
 });
 
 
@@ -12,4 +14,4 @@ function slide_playlist_item_page(playlist_id) {
   $("#playlist_page").css({"display": "block", "left": -1 * div_width + "px"});
   $("#playlist_page").css("visibility", "visible")
             .animate({opacity: 1.0, left: "0px"}, 1500);
-};
+}

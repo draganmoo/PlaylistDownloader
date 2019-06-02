@@ -3,3 +3,4 @@ PipFile
 db.sqlite3
 
 configuration/
+media/

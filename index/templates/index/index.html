@@ -30,12 +30,12 @@
           </div>
           <div class="card-img-overlay d-flex justify-content-center align-items-center">
             <div id="downloadable_playlist">
-              <a href="#" class="a-fa" playlist_id="{{ playlist.id }}">
+              <a href="#" class="a-fa" playlist_id="{{ playlist.id }}" playlist_title="{{ playlist.snippet.title }}">
                 <i class="fa fa-download fa-3x"></i>
               </a>
             </div>
             <div id="downloading_playlist">
-              <a href="#" class="a-fa" playlist_id="{{ playlist.id }}">
+              <a href="#" class="a-fa" playlist_id="{{ playlist.id }}" playlist_title="{{ playlist.snippet.title }}">
                 <i class="fa fa-eye fa-5x"></i>
               </a>
             </div>
@@ -51,7 +51,7 @@
     </div>
   </div>
     {% for playlist in playlists %}
-  <div id="playlist_item_page" class="container-fluid page" playlist_id="{{ playlist.id }}">
+  <div id="playlist_item_page" class="container-fluid page" playlist_id="{{ playlist.id }}"  playlist_title="{{ playlist.snippet.title }}">
     <div class="row col-12">
       <a href="#" id="main_page" class="a-fa"><i class="fa fa-arrow-circle-left fa-3x"></i></a>
     </div>
@@ -66,54 +66,20 @@
   <script src="{% static 'js/slide_playlist_page.js' %}"></script>
   <script src="{% static 'js/slide_playlist_item_page.js' %}"></script>
   <script>
-    $("#downloadable_playlist > a").click(function () {
-      $(this).parent().css({"display": "none"});
+    $(document).ready(function() {
       $.ajax({
-        url: "{% url 'index:my_playlist_items' %}",
-        type: "GET",
-        data: {"playlist_id": $(this).attr("playlist_id")},
-        success: create_playlist_item_page
+        url: "{% static 'html/index/handle_download.html' %}",
+        dataType: "html",
+        success: function(html) {
+          html = html.replace("URL_CLIENT_PLAYLIST_ZIP", "{% url 'youtube_dl_api:client_playlist_zip' %}");
+          html = html.replace("URL_SERVER_DOWNLOAD_VIDEO", "{% url 'youtube_dl_api:server_download_video' %}");
+
+          html = html.replace("URL_MY_PLAYLIST_ITEMS", "{% url 'index:my_playlist_items' %}")
+          html = html.replace("HTML_PLAYLIST_ITEM_PAGE", "{% static 'html/index/playlist_item.html' %}")
+          $(document.body).append(html);
+        }
       });
     });
-
-
-    function create_playlist_item_page(data) {
-      if(data.playlist_id && data.playlist_items) {
-        var selector = "#downloading_playlist >a[playlist_id=" + data.playlist_id + "]";
-        fill_playlist_item_page(data.playlist_id, data.playlist_items);
-        $(selector).parent().css({"display": "block"});
-      } else if(data.error) {
-        alert(data.error);
-      }
-    };
-
-    function fill_playlist_item_page(playlist_id, playlist_items) {
-      var selector = "#playlist_item_page[playlist_id=" + playlist_id + "]";
-      var playlist_item_page = document.querySelector(selector);
-      var row = null;
-      for(var i=0; i < playlist_items.length; i++) {
-        if(i % 4 == 0) {
-          var row = document.createElement("div");
-          row.className = "row limit-4";
-          playlist_item_page.appendChild(row);
-        }
-
-        var playlist_item = playlist_items[i];
-        $.ajax({
-          async: false,
-          url: "{% static 'html/index/playlist_item.html' %}",
-          dataType: 'html',
-          success: function(data){ append_playlist_item_template(playlist_item, row, data); }
-        });
-      }
-    };
-
-    function append_playlist_item_template(playlist_item, row, html) {
-      // Complete the template with appropriate value
-      html = html.replace("TEMPLATE_URL", playlist_item["snippet"]["thumbnails"]["high"]["url"]);
-      html = html.replace("TEMPLATE_PARAGRAPH", playlist_item["snippet"]["title"]);
-      $(row).append(html);
-    };
   </script>
 
 </body>

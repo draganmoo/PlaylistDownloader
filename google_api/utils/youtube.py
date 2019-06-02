@@ -27,7 +27,7 @@ def my_playlists(service, part='id, snippet'):
 
     return items
 
-def my_playlist_items(service, playlist_id, part='id, snippet'):
+def my_playlist_items(service, playlist_id, part='id, snippet, contentDetails'):
     response = service.playlistItems().list(part=part, playlistId=playlist_id, maxResults=50).execute()
     items = response['items']
     while 'nextPageToken' in response:
