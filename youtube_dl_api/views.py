@@ -4,8 +4,6 @@ from django.http import JsonResponse, HttpResponse
 
 from youtube_dl_api.utils import downloader, utils
 
-import os, zipfile
-
 
 
 def api_server_download_video(request):
@@ -26,17 +24,8 @@ def client_playlist_zip(request):
     playlist_id = request.GET.get('playlist_id', None)
     playlist_title = request.GET.get('playlist_title', None)
     if playlist_id and playlist_title:
-        path = utils.compute_download_path(playlist_id)
         response = HttpResponse(content_type='application/zip')
-        zip_file = zipfile.ZipFile(response, 'w')
-        for root, dirs, files in os.walk(path):
-            os.chdir('media')
-            os.rename(playlist_id, playlist_title)
-            for file in files:
-                if file.endswith('.mp3'):
-                    zip_file.write(os.path.join(playlist_title, file))
-            os.rename(playlist_title, playlist_id)
-        zip_file.close()
+        utils.generate_zip_file(response, playlist_id, playlist_title)
         response['Content-Disposition'] = 'attachment; filename={}.zip'.format(playlist_title)
         return response
 

@@ -7,7 +7,7 @@ def _gen_ydl_opts(path):
                 'postprocessors': [{'key': 'FFmpegExtractAudio',
                                     'preferredcodec': 'mp3',
                                     'preferredquality': '192'}],
-                'outtmpl': '{}/%(title)s.%(ext)s'.format(path),
+                'outtmpl': os.path.join(path, '%(title)s.%(ext)s'),
                 'writethumbnail': True}
 
 
