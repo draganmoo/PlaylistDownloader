@@ -8,8 +8,8 @@
       data: {"playlist_id": $(this).attr("playlist_id")},
       success: function(data) {
         if(data.playlist_id && data.playlist_items) {
-          recursive_items_download(data.playlist_id, playlist_title, data.playlist_items);
           create_playlist_item_page(data.playlist_id, data.playlist_items);
+          recursive_items_download(data.playlist_id, playlist_title, data.playlist_items);
         } else if(data.error) {
           alert(data.error);
         }
@@ -20,13 +20,20 @@
 
 
   /* Functions to download the playlist */
-  async function recursive_items_download(playlist_id, playlist_title, playlist_items) {
+  function recursive_items_download(playlist_id, playlist_title, playlist_items) {
     if(playlist_items.length === 0) {
       window.location = "URL_CLIENT_PLAYLIST_ZIP" +
                         "?playlist_id=" + playlist_id + "&" +
                         "playlist_title=" + playlist_title;
+
+
+      var selector = "#downloading_playlist >a[playlist_id=" + playlist_id + "]";
+      $(selector).parent().css({"display": "none"});
+      $("#downloaded_playlist[playlist_id=" + playlist_id + "]").css({"display": "block"});
     } else {
       var playlist_item = playlist_items[0];
+      $("#downloading[playlist_item_id=" + playlist_item["id"] + "]").css({"display": "block"});
+
       $.ajax({
         url: "URL_SERVER_DOWNLOAD_VIDEO",
         type: "GET",
@@ -41,17 +48,21 @@
 
   function ajax_download_video_response(response, playlist_id, playlist_title, playlist_items) {
     if(response.result) {
+      $("#downloading[playlist_item_id=" + playlist_items[0]["id"] + "]").css({"display": "none"});
+      $("#download_ok[playlist_item_id=" + playlist_items[0]["id"] + "]").css({"display": "block"});
+
       recursive_items_download(playlist_id, playlist_title,
                               playlist_items.slice(1, playlist_items.length));
     } else if(data.error) {
-      alert(data.error);
+      $("#downloading[playlist_item_id=" + playlist_items[0]["id"] + "]").css({"display": "none"});
+      $("#download_ko[playlist_item_id=" + playlist_items[0]["id"] + "]").css({"display": "block"});
     }
   }
 
 
 
   /* Functions to handle creation of playlist item page */
-  async function create_playlist_item_page(playlist_id, playlist_items) {
+  function create_playlist_item_page(playlist_id, playlist_items) {
     var selector = "#downloading_playlist >a[playlist_id=" + playlist_id + "]";
     fill_playlist_item_page(playlist_id, playlist_items);
     $(selector).parent().css({"display": "block"});
@@ -80,8 +91,9 @@
 
   function append_playlist_item_template(playlist_item, row, html) {
     // Complete the template with appropriate value
-    html = html.replace("TEMPLATE_URL", playlist_item["snippet"]["thumbnails"]["high"]["url"]);
-    html = html.replace("TEMPLATE_PARAGRAPH", playlist_item["snippet"]["title"]);
+    html = html.replace(/TEMPLATE_URL/g, playlist_item["snippet"]["thumbnails"]["high"]["url"]);
+    html = html.replace(/TEMPLATE_PARAGRAPH/g, playlist_item["snippet"]["title"]);
+    html = html.replace(/PLAYLIST_ITEM_ID/g, playlist_item["id"]);
     $(row).append(html);
   }
 </script>
