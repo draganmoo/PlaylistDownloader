@@ -1,0 +1,2 @@
+# Flush media repository weekly for projet: PlaylistDownloader
+0 5 * * 3 rm -R /Users/laurent/Documents/Projects/PlaylistDownloader/media/
