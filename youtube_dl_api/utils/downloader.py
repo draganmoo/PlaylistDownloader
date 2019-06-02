@@ -12,7 +12,10 @@ def _gen_ydl_opts(path):
 
 
 def download_url(url, path):
-    with youtube_dl.YoutubeDL(_gen_ydl_opts(path)) as ydl:
-        ydl.download([url])
-        return True
+    try:
+        with youtube_dl.YoutubeDL(_gen_ydl_opts(path)) as ydl:
+            ydl.download([url])
+            return True
+    except:
+        return False
     return False
