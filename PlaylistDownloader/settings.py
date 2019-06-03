@@ -45,6 +45,7 @@ INSTALLED_APPS = [
 
     'index',
     'google_api',
+    'spacy_api',
 ]
 
 MIDDLEWARE = [
