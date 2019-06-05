@@ -4,3 +4,4 @@ db.sqlite3
 
 configuration/
 media/
+spacy_api/spacy_models/

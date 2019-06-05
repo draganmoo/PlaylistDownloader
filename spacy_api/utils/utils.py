@@ -1,10 +1,10 @@
 from django.conf import settings
 
-import csv, requests
+import requests, pandas as pd
 
 
 
-LABELS = ('RAW', 'TITLE', 'AUTHOR')
+LABELS = ['RAW', 'TITLE', 'AUTHORS', 'FEAT', 'REMIX', 'TRASH']
 
 def retrieve_raw_data(playlist_id):
     raw_data = []
@@ -17,20 +17,13 @@ def retrieve_raw_data(playlist_id):
         row['RAW'] = item['snippet']['title']
         raw_data.append(row)
 
-    return raw_data
+    return pd.DataFrame(raw_data, columns=LABELS)
 
 
-def save_data_to_csv(file, data, delimiter=','):
-    with open(file, 'w') as csvfile:
-        writer = csv.writer(csvfile, delimiter=delimiter)
-        writer.writerow(LABELS)
-        for row in data:
-            writer.writerow(tuple([row[key] for key in LABELS]))
+def save_dataframe_to_csv(file, dataframe, delimiter=';'):
+    dataframe.to_csv(file, sep=delimiter)
 
-def read_data_from_csv(file, delimiter=','):
-    data = []
-    with open(file) as csvfile:
-        reader = csv.reader(csvfile, delimiter=delimiter)
-        for row in reader:
-            data.append(row)
-    return row
+def read_dataframe_from_csv(file, delimiter=';'):
+    dataframe = pd.read_csv(file, sep=delimiter, names=LABELS)
+    dataframe.where(dataframe.notnull(), None)
+    return dataframe
