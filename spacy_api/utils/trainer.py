@@ -3,7 +3,7 @@ import random, csv, spacy, pandas as pd
 
 from spacy.util import minibatch, compounding
 
-from spacy_api.utils.utils import read_dataframe_from_csv
+from spacy_api.utils.utils import read_dataframe_from_csv, compare_dataframes
 
 
 

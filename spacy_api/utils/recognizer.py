@@ -4,8 +4,7 @@ from spacy_api.utils.utils import read_dataframe_from_csv, LABELS
 
 
 
-def recognize_raw_from_csv(model, file):
-    dataframe = read_dataframe_from_csv(file)
+def recognize_dataframe(model, dataframe):
     recognized = []
     nlp = spacy.load(model)
     for index, row in dataframe.iterrows():
