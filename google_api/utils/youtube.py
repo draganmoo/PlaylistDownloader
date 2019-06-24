@@ -36,4 +36,12 @@ def my_playlist_items(service, playlist_id, part='id, snippet, contentDetails'):
 
         items += response['items']
 
+    items = _remove_unavailable_items(items)
+    return items
+
+
+def _remove_unavailable_items(items):
+    for item in items:
+        if 'Private video' in item['snippet']['title']:     items.remove(item)
+        elif 'Deleted video' in item['snippet']['title']:   items.remove(item)
     return items

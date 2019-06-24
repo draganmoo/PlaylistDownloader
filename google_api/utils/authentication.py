@@ -26,7 +26,8 @@ def request_authorization_url():
                 # Prompt the user to select an account.
                 prompt='select_account',
                 # Enable incremental authorization. Recommended as a best practice.
-                include_granted_scopes='true')
+                include_granted_scopes='true',
+                code_verifier='')
 
     return authorization_url, state
 
