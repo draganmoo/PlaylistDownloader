@@ -2,6 +2,6 @@
 PipFile
 db.sqlite3
 
-configuration2/
+configuration/
 media/
 spacy_api/spacy_models/
