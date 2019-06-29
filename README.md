@@ -41,8 +41,3 @@ python3 manage.py runserver
 ## Mainly Built With
 
 * [YouTube-dl](https://github.com/ytdl-org/youtube-dl) - The python package to download from YouTube
-
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
