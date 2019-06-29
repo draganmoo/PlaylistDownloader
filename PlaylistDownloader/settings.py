@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'index',
     'google_api',
     'spacy_api',
+    'youtube_dl_api',
+    'mp3_tagger',
 ]
 
 MIDDLEWARE = [

@@ -3,12 +3,13 @@ import os, youtube_dl
 
 
 def _gen_ydl_opts(path):
-    return {'format': 'bestaudio/best',
-                'postprocessors': [{'key': 'FFmpegExtractAudio',
-                                    'preferredcodec': 'mp3',
-                                    'preferredquality': '192'}],
-                'outtmpl': os.path.join(path, '%(title)s.%(ext)s'),
-                'writethumbnail': True}
+    return {'writethumbnail': True,
+            'format': 'bestaudio/best',
+            'postprocessors': [{'key': 'FFmpegExtractAudio',
+                                'preferredcodec': 'mp3',
+                                'preferredquality': '192'},
+                                {'key': 'EmbedThumbnail'}],
+            'outtmpl': os.path.join(path, '%(title)s.%(ext)s')}
 
 
 def download_url(url, path):

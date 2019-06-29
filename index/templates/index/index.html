@@ -82,6 +82,7 @@
         success: function(html) {
           html = html.replace("URL_CLIENT_PLAYLIST_ZIP", "{% url 'youtube_dl_api:client_playlist_zip' %}");
           html = html.replace("URL_SERVER_DOWNLOAD_VIDEO", "{% url 'youtube_dl_api:server_download_video' %}");
+          html = html.replace("URL_TAG_PLAYLIST_URL", "{% url 'mp3_tagger:tag_playlist' %}");
 
           html = html.replace("URL_MY_PLAYLIST_ITEMS", "{% url 'index:my_playlist_items' %}")
           html = html.replace("HTML_PLAYLIST_ITEM_PAGE", "{% static 'html/index/playlist_item.html' %}")

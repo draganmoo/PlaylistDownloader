@@ -9,4 +9,5 @@ urlpatterns = [
     path('', include('index.urls')),
     path('google_api/', include('google_api.urls')),
     path('youtube_dl_api/', include('youtube_dl_api.urls')),
+    path('mp3_tagger/', include('mp3_tagger.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -7,7 +7,7 @@ from . import views
 app_name = 'youtube_dl_api'
 
 urlpatterns = [
-    path('youtube_dl/download_video/', views.api_server_download_video, name='server_download_video'),
+    path('server/download_video/', views.api_server_download_video, name='server_download_video'),
 
     path('client/download_playlist/zip', views.client_playlist_zip, name='client_playlist_zip'),
 ]

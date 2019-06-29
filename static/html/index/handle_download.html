@@ -22,14 +22,21 @@
   /* Functions to download the playlist */
   function recursive_items_download(playlist_id, playlist_title, playlist_items) {
     if(playlist_items.length === 0) {
-      window.location = "URL_CLIENT_PLAYLIST_ZIP" +
-                        "?playlist_id=" + playlist_id + "&" +
-                        "playlist_title=" + playlist_title;
+      $.ajax({
+        url: "URL_TAG_PLAYLIST_URL",
+        type: "GET",
+        data: {"playlist_id": playlist_id},
+        success: function(response) {
+          window.location = "URL_CLIENT_PLAYLIST_ZIP" +
+                            "?playlist_id=" + playlist_id + "&" +
+                            "playlist_title=" + playlist_title;
 
 
-      var selector = "#downloading_playlist > a[playlist_id='" + playlist_id + "']";
-      $(selector).parent().css({"display": "none"});
-      $("#downloaded_playlist[playlist_id='" + playlist_id + "']").css({"display": "block"});
+          var selector = "#downloading_playlist > a[playlist_id='" + playlist_id + "']";
+          $(selector).parent().css({"display": "none"});
+          $("#downloaded_playlist[playlist_id='" + playlist_id + "']").css({"display": "block"});
+        }
+      });
     } else {
       var playlist_item = playlist_items[0];
       $("#downloading[playlist_item_id='" + playlist_item["id"] + "']").css({"display": "block"});
