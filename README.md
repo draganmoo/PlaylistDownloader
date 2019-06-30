@@ -1,4 +1,4 @@
-# Project Title
+# PlaylistDownloader
 
 Local website in order to download MP3 files of all playlist of your YouTube account easily.
 
